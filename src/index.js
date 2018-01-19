@@ -20,6 +20,12 @@ Promise.all([
       if (empty(match)) {
         console.log('It\'s a match')
         vrtCreateDiff(data[0])
+          .then(function (resolved) {
+            console.log(resolved)
+          })
+          .catch(function (error) {
+            console.log(error.message)
+          })
       } else {
         console.log('Your reference and test images do not match. Mis-matched files: ' + match)
       }
@@ -27,26 +33,34 @@ Promise.all([
   )
   .catch((err) => console.log(err))
 
-function compareImg (img) {
-  var refImg = imagePath + refImagePath + img
-  var testImg = imagePath + testImagePath + img
-  resemble(refImg).compareTo(testImg).ignoreNothing().onComplete(function(data) {
-    const diffImagePath = './images/diff/' + img +'.jpg'
-    var diffImage = data.getDiffImageAsJPEG(85)
-    // Write the diff file to disk.
-    fs.writeFile(diffImagePath, diffImage, function(err) {
-      if (err) throw err
-      console.log('Your diff has been saved to %s', diffImagePath)
-      // Generate the compare img config details
-      createImgConfig (data, img)
+function vrtCreateDiff (imgList) {
+  
+  var jsonObj = []
+  return new Promise( (resolve, reject) => {
+    let imgListLen = imgList.length
+    imgList.forEach( function compareImg (img) {
+
+      var refImg = imagePath + refImagePath + img
+      var testImg = imagePath + testImagePath + img
+    
+      resemble(refImg).compareTo(testImg).ignoreNothing().onComplete(function(data) {
+        const diffImagePath = './images/diff/' + img +'.jpg'
+        var diffImage = data.getDiffImageAsJPEG(85)
+        // Write the diff file to disk.
+        fs.writeFile(diffImagePath, diffImage, function(err) {
+          if (err) reject(err)
+          //console.log('Your diff has been saved to %s', diffImagePath)
+          // Generate the compare img config details
+          jsonObj.push(createImgConfig (data, img))
+
+          if(--imgListLen <= 0) {
+            resolve(jsonObj)
+          }
+        })
+      })
+
     })
   })
-}
-
-function vrtCreateDiff (imgList) {
-  //var jsonObj = []
-  imgList.forEach( compareImg )
-  
 }
 
 function createImgConfig (data, img) {
