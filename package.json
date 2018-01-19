@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js",
+    "prestart": "eslint src/**/**.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "node-resemble-js": "^0.2.0"
   },
   "devDependencies": {
+    "eslint": "^4.15.0",
     "fs-extra": "^5.0.0",
     "is-empty": "^1.2.0"
   }
