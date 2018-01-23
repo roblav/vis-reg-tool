@@ -27,7 +27,7 @@ Or a config file will be created.
 
 In the 'compare' directory you should see a generated config.js file. Open index.html in your browser of choice.
 
-# Step 5 - Archive your report (Optional)
+## Step 5 - Archive your report (Optional)
 
 If you want to create more than 1 report you need to archive it.
 
