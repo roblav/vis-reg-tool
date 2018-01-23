@@ -21,7 +21,10 @@ Promise.all([
         console.log('It\'s a match')
         vrtCreateDiff(data[0])
           .then(function (resolved) {
-            console.log(resolved)
+            // This provides the results array
+            // Send to vtrCreateConfig
+            //console.log(resolved)
+            vtrCreateConfig(resolved)
           })
           .catch(function (error) {
             console.log(error.message)
@@ -32,6 +35,20 @@ Promise.all([
     }
   )
   .catch((err) => console.log(err))
+
+function vtrCreateConfig(imgDetailsJson) {
+  // Output the file json config file
+  //console.log(imgDetailsJson)
+  var configJson = {'testSuite': 'Visual Regression Test', 'tests': imgDetailsJson }
+  var configReport = 'report(' + JSON.stringify(configJson, null, 2) + ')'
+
+  fs.writeFile('./compare/config.js', configReport, function(err) {
+    if(err) {
+      return console.log(err)
+    }
+    console.log('File saved successfully!')
+  })
+}
 
 function vrtCreateDiff (imgList) {
   
@@ -49,10 +66,9 @@ function vrtCreateDiff (imgList) {
         // Write the diff file to disk.
         fs.writeFile(diffImagePath, diffImage, function(err) {
           if (err) reject(err)
-          //console.log('Your diff has been saved to %s', diffImagePath)
+          // console.log('Your diff has been saved to %s', diffImagePath)
           // Generate the compare img config details
           jsonObj.push(createImgConfig (data, img))
-
           if(--imgListLen <= 0) {
             resolve(jsonObj)
           }
@@ -66,16 +82,18 @@ function vrtCreateDiff (imgList) {
 function createImgConfig (data, img) {
   //console.log(data, img)
   // What does the config file need to look like?
+  // Replace any ? with %3F
+  var formatImg = img.replace(/[?]/g, '%3F')
   var imgObj = {
     'pair': {
-      'reference': './images/reference/' + img,
-      'test': './images/test/' + img,
+      'reference': '../images/reference/' + formatImg,
+      'test': '../images/test/' + formatImg,
       'selector': '',
       'fileName': img,
       'label': img,
       'misMatchThreshold': 0.1,
       'diff': data,
-      'diffImage': './images/diff/' + img
+      'diffImage': '../images/diff/' + formatImg + '.jpg'
     },
     'status': 'fail'
 
