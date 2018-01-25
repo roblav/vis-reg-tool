@@ -6,6 +6,9 @@ const createImgConfig = require('./create-img-config')
 
 module.exports = function vrtCreateDiff (imgList) {
   
+  // Make sure there is a diff directory
+  fs.ensureDirSync(config.diffImagePath)
+
   var jsonObj = []
 
   return new Promise( (resolve, reject) => {
