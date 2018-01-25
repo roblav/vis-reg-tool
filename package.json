@@ -17,6 +17,7 @@
   "devDependencies": {
     "eslint": "^4.15.0",
     "fs-extra": "^5.0.0",
-    "is-empty": "^1.2.0"
+    "is-empty": "^1.2.0",
+    "opn": "^5.2.0"
   }
 }

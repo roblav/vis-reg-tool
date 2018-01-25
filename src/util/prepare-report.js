@@ -7,7 +7,7 @@ const config = require('../config')
 
 module.exports = function prepareReport(reportName) {
 
-  const dir = path.join('build', reportName)
+  const dir = path.join(config.buildDir, reportName)
 
   fs.ensureDirSync(dir)
   

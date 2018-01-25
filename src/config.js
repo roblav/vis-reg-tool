@@ -4,6 +4,7 @@ const path = require('path')
 const imgPath = 'images'
 
 var config = {
+  buildDir: path.join('build'),
   imageDir: path.join(imgPath),
   compareDir: path.join('compare'),
   refImagePath: path.join(imgPath, 'reference/'),

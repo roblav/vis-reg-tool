@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 const array = require('lodash/array')
 const empty = require('is-empty')
 const path = require('path')
+const opn = require('opn');
 
 const config = require('./config')
 
@@ -53,6 +54,8 @@ function vtrGenerateReport(imgDetailsJson) {
     }
     console.log('Your images have been processed and your report created!')
 
-    // Spin up server and open report
+    // Open report in default browser
+    var reportPath = path.join(config.buildDir, config.reportName, config.compareDir, 'index.html')
+    opn(reportPath)
   })
 }
