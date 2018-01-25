@@ -1,21 +1,30 @@
 
+const path = require('path')
+
+const config = require('../config')
+
 module.exports = function createImgConfig (data, img) {
-  //console.log(data, img)
-  // What does the config file need to look like?
+  // console.log(__dirname)
+  var status
+  if (data.misMatchPercentage <= config.misMatchThreshold) {
+    status = 'pass'
+  } else {
+    status = 'fail'
+  }
   // Replace any ? with %3F
   var formatImg = img.replace(/[?]/g, '%3F')
   var imgObj = {
     'pair': {
-      'reference': '../images/reference/' + formatImg,
-      'test': '../images/test/' + formatImg,
+      'reference': path.join('../', config.refImagePath, formatImg),
+      'test': path.join('../', config.testImagePath, formatImg),
       'selector': '',
       'fileName': img,
       'label': img,
-      'misMatchThreshold': 0.1,
+      'misMatchThreshold': config.misMatchThreshold,
       'diff': data,
-      'diffImage': '../images/diff/' + formatImg + '.jpg'
+      'diffImage': '../' + config.diffImagePath + formatImg + '.jpg'
     },
-    'status': 'fail'
+    'status': status
 
   }
   return imgObj
