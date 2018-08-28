@@ -22,9 +22,11 @@ You can have as many pairs of images as you like but it may be worth batching yo
 
 In the top level create an 'images' directory. In this directory create a 'reference' and 'test' directory.
 
+```
 |_images
   |_reference
   |_test
+```
 
 ## Step 2 - Added reference and test images
 
