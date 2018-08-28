@@ -18,15 +18,23 @@ To use this project you will need to have a set of image pairs to compare.
 Each pair of images should be named the same if they are not you will get an error. 
 You can have as many pairs of images as you like but it may be worth batching your images in to sets of 10 and generating multiple reports.
 
-## Step 1 - Added reference and test images
+## Step 1 - Create reference and test images directory
+
+In the top level create an 'images' directory. In this directory create a 'reference' and 'test' directory.
+
+|_images
+  |_reference
+  |_test
+
+## Step 2 - Added reference and test images
 
 Add reference images and test images to the relevant folders in the 'images' directory.
 
-## Step 2 - Install node dependancies
+## Step 3 - Install node dependancies
 
 ```$ npm install```
 
-## Step 3 - Run visual regression report
+## Step 4 - Run visual regression report
 
 ```$ npm start```
 
