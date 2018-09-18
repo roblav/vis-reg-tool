@@ -2,7 +2,7 @@
 
 This visual regression toolkit has been based on the amazing work done in this project https://github.com/garris/BackstopJS
 
-This is a slim version of that project and assumes that the user generates there before (reference) and after (test) images themselves.
+This is a slim version of that project and assumes that the user generates their before (reference) and after (test) images themselves.
 
 ## Requirements
 
@@ -11,6 +11,8 @@ This is a slim version of that project and assumes that the user generates there
 It is recommeneded to install Node using Node Version Manager
 
 https://github.com/creationix/nvm
+
+Works with node v6 and above.
 
 ### Prepare reference and test image to compare
 
